@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"ture","show_result":"ture","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="7-最小完全背包+换根DP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7-最小完全背包+换根DP">
+<meta property="og:url" content="http://yoursite.com/2020/08/03/7-%E6%9C%80%E5%B0%8F%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85-%E6%8D%A2%E6%A0%B9DP/index.html">
+<meta property="og:site_name" content="KoourlのBLOG">
+<meta property="og:description" content="7-最小完全背包+换根DP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-03T03:34:44.000Z">
+<meta property="article:modified_time" content="2020-08-03T04:08:03.323Z">
+<meta property="article:author" content="Koourl">
+<meta property="article:tag" content="WEAKLY">
+<meta property="article:tag" content="7-最小完全背包+换根DP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/03/7-%E6%9C%80%E5%B0%8F%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85-%E6%8D%A2%E6%A0%B9DP/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>7-最小完全背包+换根DP | KoourlのBLOG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="KoourlのBLOG" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KoourlのBLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/03/7-%E6%9C%80%E5%B0%8F%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85-%E6%8D%A2%E6%A0%B9DP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Koourl">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KoourlのBLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7-最小完全背包+换根DP
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:34:44 / 修改时间：12:08:03" itemprop="dateCreated datePublished" datetime="2020-08-03T11:34:44+08:00">2020-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEAKLY/" itemprop="url" rel="index"><span itemprop="name">WEAKLY</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">7-最小完全背包+换根DP</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>HD 1114</p>
+<h1 id="Piggy-Bank"><a href="#Piggy-Bank" class="headerlink" title="Piggy-Bank"></a>Piggy-Bank</h1><p><strong><em>\</em>Time Limit: 2000/1000 MS (Java/Others)  Memory Limit: 65536/32768 K (Java/Others)**</strong></p>
+<p>Problem Description</p>
+<p>Before ACM can do anything, a budget must be prepared and the necessary financial support obtained. The main income for this action comes from Irreversibly Bound Money (IBM). The idea behind is simple. Whenever some ACM member has any small money, he takes all the coins and throws them into a piggy-bank. You know that this process is irreversible, the coins cannot be removed without breaking the pig. After a sufficiently long time, there should be enough cash in the piggy-bank to pay everything that needs to be paid.</p>
+<p>But there is a big problem with piggy-banks. It is not possible to determine how much money is inside. So we might break the pig into pieces only to find out that there is not enough money. Clearly, we want to avoid this unpleasant situation. The only possibility is to weigh the piggy-bank and try to guess how many coins are inside. Assume that we are able to determine the weight of the pig exactly and that we know the weights of all coins of a given currency. Then there is some minimum amount of money in the piggy-bank that we can guarantee. Your task is to find out this worst case and determine the minimum amount of cash inside the piggy-bank. We need your help. No more prematurely broken pigs!</p>
+<p>Input</p>
+<p>The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing two integers E and F. They indicate the weight of an empty pig and of the pig filled with coins. Both weights are given in grams. No pig will weigh more than 10 kg, that means 1 &lt;= E &lt;= F &lt;= 10000. On the second line of each test case, there is an integer number N (1 &lt;= N &lt;= 500) that gives the number of various coins used in the given currency. Following this are exactly N lines, each specifying one coin type. These lines contain two integers each, Pand W (1 &lt;= P &lt;= 50000, 1 &lt;= W &lt;=10000). P is the value of the coin in monetary units, W is it’s weight in grams.</p>
+<p>Output</p>
+<p>Print exactly one line of output for each test case. The line must contain the sentence “The minimum amount of money in the piggy-bank is X.” where X is the minimum amount of money that can be achieved using coins with the given total weight. If the weight cannot be reached exactly, print a line “This is impossible.”.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">10 110</span><br><span class="line">2</span><br><span class="line">1 1</span><br><span class="line">30 50</span><br><span class="line">10 110</span><br><span class="line">2</span><br><span class="line">1 1</span><br><span class="line">50 30</span><br><span class="line">1 6</span><br><span class="line">2</span><br><span class="line">10 3</span><br><span class="line">20 4</span><br></pre></td></tr></table></figure>
+
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The minimum amount of money in the piggy-bank is 60.</span><br><span class="line">The minimum amount of money in the piggy-bank is 100.</span><br><span class="line">This is impossible.</span><br></pre></td></tr></table></figure>
+
+<p>Source</p>
+<p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/search.php?field=problem&key=Central+Europe+1999&source=1&searchmode=source">Central Europe 1999</a></p>
+<p> 分析：一道很简单的完全背包，只不过要求求背包内的最小值</p>
+<p>​                原完全背包转移方程：DP[ i ] = max ( DP[ i ] , DP[ i - Wight [ i ] ] +  Value [ i ] )</p>
+<p>​                现转移方程：DP[ i ] = min ( DP[ i ] , DP[ i - Wight [ i ] ] +  Value [ i ] ) </p>
+<p>AC 代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">int</span> w[<span class="number">505</span>];</span><br><span class="line"><span class="keyword">int</span> p[<span class="number">505</span>];</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">100005</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span> (t--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> e, f, n;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; e &gt;&gt; f &gt;&gt; n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; w[i] &gt;&gt; p[i];</span><br><span class="line">        <span class="keyword">int</span> temp = f - e;</span><br><span class="line">        <span class="built_in">memset</span>(dp, inf, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = p[i]; j &lt;= temp; j++)</span><br><span class="line">                dp[j] = <span class="built_in">min</span>(dp[j], (dp[j - p[i]] + w[i]));</span><br><span class="line">        <span class="keyword">if</span> (dp[temp] != inf)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;The minimum amount of money in the piggy-bank is &quot;</span> &lt;&lt; dp[temp] &lt;&lt; <span class="string">&quot;.&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;This is impossible.&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Radio-Prize"><a href="#Radio-Prize" class="headerlink" title="Radio-Prize"></a>Radio-Prize</h1><p><strong><em>\</em>Time Limit: 3000 MS  Memory Limit: 262144 K**</strong></p>
+<p>All boring tree-shaped lands are alike, while all exciting tree-shaped lands are exciting in their own special ways.What makes Treeland more exciting than the other tree-shaped lands are the raddest radio hosts in the local area: Rootand Leaf. Every morning on FM 32:33 (repeating of course), Root and Leaf of The Full Depth Morning Show serveup the hottest celebrity gossip and traffic updates.</p>
+<p>The region of Treeland is made of n<em>n</em> cities, connected by n - 1<em>n</em>−1 roads such that between every pair of cities there isexactly one simple path. The i<em>i</em>th road connects cities u_i<em>u**i</em> and v_i<em>v**i</em>, and has a toll of w_i<em>w**i</em>.</p>
+<p>To reward their loyal listeners, The Full Depth Morning Show is giving away a number of travel packages! Root andLeaf will choose n - 1<em>n</em>−1 lucky residents from the city that sends them the most fan mail. Each of those residents thengets a distinct ticket to a different city in Treeland.</p>
+<p>Each city in Treeland has its own tax on prizes: t_i<em>t**i</em>. Let d_{u,v}<em>d**u</em>,<em>v</em> be the sum of the tolls on each road on the only simplepath from city u<em>u</em> to v<em>v</em>. For a trip from city u<em>u</em> to city v<em>v</em>, the cost of that trip is then (t_u + t_v)d_{u,v}(<em>t**u</em>+<em>t**v</em>)<em>d**u</em>,<em>v</em>.</p>
+<p>The shock jocks haven’t quite thought through how much their prize is worth. They need to prepare a report to theradio executives, to summarize the expected costs. For each city that could win the prize, what is the total cost ofpurchasing all the tickets?</p>
+<h2 id="input"><a href="#input" class="headerlink" title="input"></a>input</h2><p>The first line of input is a single integer n (1 \leq≤ n \leq≤ 100 000). The next line has n<em>n</em> space-separated integers t_i<em>t**i</em>(1 \leq t_i \leq 1 0001≤<em>t**i</em>≤1000), the tax in each city. The following n - 1<em>n</em>−1 lines each have 3 integers, u_i,v_i,w_i<em>u**i</em>,<em>v**i</em>,<em>w**i</em>, meaning the i<em>i</em>th roadconnects cities u_i<em>u**i</em> and v_i<em>v**i</em> (1 \leq u_i,v_i \leq n1≤<em>u**i</em>,<em>v**i</em>≤<em>n</em>), with a toll of w_i<em>w**i</em> (1 \leq w_i \leq 1 0001≤<em>w**i</em>≤1000).</p>
+<h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><p>Output n<em>n</em> lines. On the i<em>i</em>th line, output a single integer: the cost of purchasing tickets if city i wins the contest</p>
+<h4 id="样例输入1"><a href="#样例输入1" class="headerlink" title="样例输入1"></a>样例输入1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">2 5 3 4 1</span><br><span class="line">1 2 2</span><br><span class="line">2 4 5</span><br><span class="line">4 3 3</span><br><span class="line">5 2 6</span><br></pre></td></tr></table></figure>
+
+<h4 id="样例输出1"><a href="#样例输出1" class="headerlink" title="样例输出1"></a>样例输出1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">130</span><br><span class="line">159</span><br><span class="line">191</span><br><span class="line">163</span><br><span class="line">171</span><br></pre></td></tr></table></figure>
+
+<h4 id="样例输入2"><a href="#样例输入2" class="headerlink" title="样例输入2"></a>样例输入2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">4 3 3 4 3 3</span><br><span class="line">1 3 2</span><br><span class="line">2 1 1</span><br><span class="line">1 4 6</span><br><span class="line">4 5 6</span><br><span class="line">6 4 2</span><br></pre></td></tr></table></figure>
+
+<h4 id="样例输出2"><a href="#样例输出2" class="headerlink" title="样例输出2"></a>样例输出2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">209</span><br><span class="line">206</span><br><span class="line">232</span><br><span class="line">209</span><br><span class="line">336</span><br><span class="line">232</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p>​    大意，有一个活动在一个岛上举行，这个岛上有 N 个城市，活动将选举出其中一个城市作为优胜</p>
+<p>​                获得优胜的城市将给其他 N-1 个城市各选一个人来优胜城市游玩，费用由主办方承担</p>
+<p>​                每个城市由自己的税收系数，每条道路之间由过路费，主办方承担路费，</p>
+<p>​                收费方式如下：比如，从A城市到B城市</p>
+<p>​                                            需要的费用为：两地税收系数和 * 两城市间道路所需总过路费（道路过路费的和）</p>
+<p>​                主办方在举行活动时没有考虑到费用问题，现要计算，每一个城市获胜是，主办方所需付的费用</p>
+<p>​    题解，乍一看应该是一个DFS的典型问题，这个思路没有问题，只是少了东西，如果单纯的DFS，</p>
+<p>​                要考虑到，有可能在一个节点上会有分支，而分支行不通的可能，因为题目限定由N个节点，N-1个路</p>
+<p>​                所以不会形成环图</p>
+<p>​                还要考虑，题目中给出的节点数是：小于等于 10w</p>
+<p>​                如果单纯对每个结点都进行单纯的DFS输出，虽然时间上限有3000ms，</p>
+<p>​                但是大数的样例很难保证不会超时，所以需要借助到 DP 数组来简化DFS的计算</p>
+<p>​                那么，我们不妨吧城市之间的联系看作一颗树，而不是图</p>
+<p>​                那么有请小学二年级学过的换根DP</p>
+<p>​                                换根DP基础思想：为了解决不定根的问题，</p>
+<p>​                                                                即：要求输出所有根节点的所有情况时，使用换根DP</p>
+<p>​                                方法：先随便选定一个根节点作为最初的根节点，进行一遍DFS与DP</p>
+<p>​                                            然后用本次的结果再次进行DP，来得到其他根节点情况</p>
+<p>​                首先说明需要保存的东西： t（M）用来保存题目中给的各地的税收</p>
+<p>​                                                                sum用来保存，所有路费的总和</p>
+<p>​                                                                sizen（M）用来保存以第 I 个节点为根节点时的子节点的个数</p>
+<p>​                                                                sizev（M）用来保存以第 I 个节点为根节点时的子节点的值和</p>
+<p>​                                                                sum_wij（M）用来保存从节点 I 到 J 所有的路费和</p>
+<p>​                                                                sum_wijk（M）用来保存从节点 I 到 J 的路费和并乘 J 地的税收</p>
+<p>​                                                                tree（M * 2）用来保存树的边及其权值</p>
+<p>​                                                                node中的form代表从哪个节点来</p>
+<p>​                                                                                next代表下一条要考虑的路径</p>
+<p>​                                                                                value代表当前要考虑路径的权</p>
+<p>​                                                                Head（M）用来保存当前考虑的路径所要达到的节点的</p>
+<p>​                                                                                上一条可达到要到达节点的编号</p>
+<p>​                                                                                Eg：当前4号节点通过路径3指向了2号节点</p>
+<p>​                                                                                        5号节点想通过路径8指向2号节点</p>
+<p>​                                                                                        为了可以顺利进行路径遍历，</p>
+<p>​                                                                                        Head（2）为3，代表上一个到达节点2的为3</p>
+<p>​                                                                                        在8号路完成之后，去3号路，让8号路next为3</p>
+<p>​                                                                                        然后更新Head（2）为 8</p>
+<p>​                接下来说明两个重要部分：dfs和DFS</p>
+<p>​                            dfs对一个节点进行深度优先搜索，根据题意，要的时起始地点的税收和*路费和</p>
+<p>​                            以样例一为例，说明如何进行一遍的dfs</p>
+<p>​                                    考虑第一个城市获胜的一遍dfs</p>
+<p>​                                                那么他就需要2X2+5X2（2到1）</p>
+<p>​                                                                        2X7+4X7（4到1）</p>
+<p>​                                                                        2X10+3X10（3到1）</p>
+<p>​                                                                        2X8+1X8（5到1）</p>
+<p>​                                                可以看到，前面都有一个2，提取公因式2，那么前半部分的和</p>
+<p>​                                                                        即：2+7+10+8是什么呢？</p>
+<p>​                                                                                    即：所有路径的长度</p>
+<p>​                                                                                                用sum_wij维护这些值</p>
+<p>​                                                                        转移方程就是sum_wij(x)+=sum_wij(F)+sizn(F) * V</p>
+<p>​                                                            sum_wij(x)即考虑到第X个节点的总路径长度</p>
+<p>​                                                            sum_wij(F)即到上一个节点所需的总路径长度</p>
+<p>​                                                            sizn(F)这个节点之前有多少个节点</p>
+<p>​                                                            V就是现在考虑的路径的权</p>
+<p>​                                                            那么sizn(F)*V就很好理解，即有多少个节点要过这条路径</p>
+<p>​                                                                            长度就应对应增加这么多</p>
+<p>​                                                后面是对应路径长乘起始城市的对应税收</p>
+<p>​                                                                        转移方程为sum_wijt(x)+=sum_wijt(F)+sizv(F)*V</p>
+<p>​                                                                与上面的处理方法相似，可以类推</p>
+<p>​                                                            sum_wijt(x)即考虑到第X个节点的总路径长度乘对应的累计T值</p>
+<p>​                                                            sum_wijt(F)即上一个节点的路径长度乘对应的累计T值</p>
+<p>​                                                            sum_sizv(F)即当前考虑的路径有多少城市的税收要收</p>
+<p>​                                                            V仍为路费</p>
+<p>​                                                    dfs结束</p>
+<p>​                            DFS</p>
+<p>​                                            在遍历完一遍之后我们已经有了到每个节点的每一个对应值</p>
+<p>​                                            那么我们现在要求其他的就方便了很多，不需要再去执行更多的dfs            </p>
+<p>​                                            Eg：我们已经求完了1为根节点的情况，求2为根节点的情况</p>
+<p>​                                                    那么我们使用现成的sun_wij(F),sum_wijt(F)进行加工</p>
+<p>​                                                    考虑节点2是，其F为1（样例1为例）</p>
+<p>​                                                    那么我们有路径总和，路径总个数，呢么我们只需要</p>
+<p>​                                                            1的总合减去2到1的部分，加上1到2的部分即可</p>
+<p>​                                                    那么很明显转移方程为：</p>
+<p>​                                            sum_wij(F)=sum_wij(x) - sizn(F) * V + (n-sizen(F)) * V</p>
+<p>​                                                        即总和减去2到1的部分，即为1到2的部分，乘以当前路径（1到2）</p>
+<p>​                                                        的路径权值，就是2节点为根节点的情况</p>
+<p>​                                            sum_wijt(F)=sum_wij(x)-iszv(F) * V + (sum-sizev(F)) * V</p>
+<p>​                                                        与上同理，类比即可</p>
+<p>​                那么，到这里这个换根DP或者说叫DFS+回溯+DP这个连续剑已经结束了</p>
+<p>​                            但是还有一个地方值得注意，那就是addnode增加树中或者图中的节点的方法</p>
+<p>​                                        只保存这个节点从哪里出发，和这条路径考虑完，下一条是哪条的方法</p>
+<p>​                                        在初始化节点时，就已经做完了回溯的工作，以至于在DFS和dfs的过程中</p>
+<p>​                                        不需要再利用多余的方法去保存分支，而是直接初始化好了一条路线的方法</p>
+<p>​                                        既省时间，有节省空间</p>
+<p>​                            在dfs和DFS的过程中，其节点的移动始终都只用了一中方法，那就是查询</p>
+<p>​                                    查询谁能到这个节点，通过的是哪条路，如果查询重复即：下一个与上一个相同</p>
+<p>​                                                                                                                                        则直接找下一个</p>
+<p>​                                    当这条路完成之后，走到这条路的next即下一个应该考虑的路的编号</p>
+<p>​                                    在初始化时利用Head数组完成这样巧妙的初始化，使得dfs的回溯更加便利</p>
+<p>​                            即，当前插入节点时，考虑Head（x），让next=Head（x）</p>
+<p>​                                    在完成一次插入后，再让Head（x）变为当前序号，这样，</p>
+<p>​                                    在下一次，又有去该节点的地方的时候，next就可以直接被初始化</p>
+<p>​                                    为上一次的到这个节点的路径编号，</p>
+<p>​                                    那么我这条路走完之后下一条走这个编号的路，完成了这样的保存之后</p>
+<p>​                                    更新Head（x）为这次的编号，那么就相当于更新了考虑这个节点的时候先去</p>
+<p>​                                    哪条路，再由这条路，引至下一条该走的路</p>
+<p>​                                    来完成这个需要回溯但不需额外保存的方式</p>
+<p> AC代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> from;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">&#125;tree[M * <span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> counts = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> Head[M];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addnode</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[++counts].next = Head[x];</span><br><span class="line">    tree[counts].from = y;</span><br><span class="line">    tree[counts].value = v;</span><br><span class="line">    Head[x] = counts;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> t[M];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> sizn[M];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> sizv[M];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> sum_wij[M];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> sum_wijt[M];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sizn[x] = <span class="number">1</span>;</span><br><span class="line">    sizv[x] = t[x];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = Head[x]; i; i = tree[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> F = tree[i].from;</span><br><span class="line">        <span class="keyword">int</span> V = tree[i].value;</span><br><span class="line">        <span class="keyword">if</span> (F == f)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        dfs(F, x);</span><br><span class="line">        sizn[x] += sizn[F];</span><br><span class="line">        sizv[x] += sizv[F];</span><br><span class="line">        sum_wij[x] += sum_wij[F] + sizn[F] * V;</span><br><span class="line">        sum_wijt[x] += sum_wijt[F] + sizv[F] * V;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = Head[x]; i; i = tree[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> F = tree[i].from;</span><br><span class="line">        <span class="keyword">int</span> V = tree[i].value;</span><br><span class="line">        <span class="keyword">if</span> (F == f)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        sum_wij[F] = sum_wij[x] - sizn[F] * V + (n - sizn[F]) * V;</span><br><span class="line">        sum_wijt[F] = sum_wijt[x] - sizv[F] * V + (sum - sizv[F]) * V;</span><br><span class="line">        DFS(F, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; t[i];</span><br><span class="line">        sum += t[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u, v, w;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">        addnode(u, v, w);</span><br><span class="line">        addnode(v, u, w);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    DFS(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> temp = <span class="number">0</span>;</span><br><span class="line">        temp += sum_wij[i] * t[i] + sum_wijt[i];</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; temp &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​                                            </p>
+<p>​                                        </p>
+<p>​                                                                                                            </p>
+<p>​                                                                                            </p>
+<p>​                                                                </p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Koourl
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/08/03/7-%E6%9C%80%E5%B0%8F%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85-%E6%8D%A2%E6%A0%B9DP/" title="7-最小完全背包+换根DP">http://yoursite.com/2020/08/03/7-最小完全背包-换根DP/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEAKLY/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/7-%E6%9C%80%E5%B0%8F%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85-%E6%8D%A2%E6%A0%B9DP/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/03/6-%E7%8A%B6%E5%8E%8B-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/" rel="prev" title="6-状压+最长上升子序列">
+      <i class="fa fa-chevron-left"></i> 6-状压+最长上升子序列
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/03/8-%E7%8A%B6%E5%8E%8B/" rel="next" title="8-状压">
+      8-状压 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Piggy-Bank"><span class="nav-number">1.</span> <span class="nav-text">Piggy-Bank</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Radio-Prize"><span class="nav-number">2.</span> <span class="nav-text">Radio-Prize</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#input"><span class="nav-number">2.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#output"><span class="nav-number">2.2.</span> <span class="nav-text">output</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%85%A51"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">样例输入1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%87%BA1"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">样例输出1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%85%A52"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">样例输入2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%87%BA2"><span class="nav-number">2.2.0.4.</span> <span class="nav-text">样例输出2</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Koourl"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Koourl</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koourl</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">78k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:11</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+</body>
+</html>

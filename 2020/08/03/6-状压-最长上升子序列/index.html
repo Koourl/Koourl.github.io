@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"ture","show_result":"ture","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="6-状压+最长上升子序列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6-状压+最长上升子序列">
+<meta property="og:url" content="http://yoursite.com/2020/08/03/6-%E7%8A%B6%E5%8E%8B-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/index.html">
+<meta property="og:site_name" content="KoourlのBLOG">
+<meta property="og:description" content="6-状压+最长上升子序列">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://acm.hdu.edu.cn/data/images/1087-1.jpg">
+<meta property="article:published_time" content="2020-08-03T03:34:31.000Z">
+<meta property="article:modified_time" content="2020-08-03T04:08:10.685Z">
+<meta property="article:author" content="Koourl">
+<meta property="article:tag" content="WEAKLY">
+<meta property="article:tag" content="6-状压+最长上升子序列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://acm.hdu.edu.cn/data/images/1087-1.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/03/6-%E7%8A%B6%E5%8E%8B-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>6-状压+最长上升子序列 | KoourlのBLOG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="KoourlのBLOG" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KoourlのBLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/03/6-%E7%8A%B6%E5%8E%8B-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Koourl">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KoourlのBLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6-状压+最长上升子序列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:34:31 / 修改时间：12:08:10" itemprop="dateCreated datePublished" datetime="2020-08-03T11:34:31+08:00">2020-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEAKLY/" itemprop="url" rel="index"><span itemprop="name">WEAKLY</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">6-状压+最长上升子序列</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>HD 1074</p>
+<h1 id="Doing-Homework"><a href="#Doing-Homework" class="headerlink" title="Doing Homework"></a>Doing Homework</h1><p><strong><em>\</em>Time Limit: 2000/1000 MS (Java/Others)  Memory Limit: 65536/32768 K (Java/Others)**</strong></p>
+<p>Problem Description</p>
+<p>Ignatius has just come back school from the 30th ACM/ICPC. Now he has a lot of homework to do. Every teacher gives him a deadline of handing in the homework. If Ignatius hands in the homework after the deadline, the teacher will reduce his score of the final test, 1 day for 1 point. And as you know, doing homework always takes a long time. So Ignatius wants you to help him to arrange the order of doing homework to minimize the reduced score.</p>
+<p>Input</p>
+<p>The input contains several test cases. The first line of the input is a single integer T which is the number of test cases. T test cases follow.<br>Each test case start with a positive integer N(1&lt;=N&lt;=15) which indicate the number of homework. Then N lines follow. Each line contains a string S(the subject’s name, each string will at most has 100 characters) and two integers D(the deadline of the subject), C(how many days will it take Ignatius to finish this subject’s homework).</p>
+<p>Note: All the subject names are given in the alphabet increasing order. So you may process the problem much easier.</p>
+<p>Output</p>
+<p>For each test case, you should output the smallest total reduced score, then give out the order of the subjects, one subject in a line. If there are more than one orders, you should output the alphabet smallest one.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br><span class="line">Computer 3 3</span><br><span class="line">English 20 1</span><br><span class="line">Math 3 2</span><br><span class="line">3</span><br><span class="line">Computer 3 3</span><br><span class="line">English 6 3</span><br><span class="line">Math 6 3</span><br></pre></td></tr></table></figure>
+
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">Computer</span><br><span class="line">Math</span><br><span class="line">English</span><br><span class="line">3</span><br><span class="line">Computer</span><br><span class="line">English</span><br><span class="line">Math</span><br><span class="line"></span><br><span class="line">Hint</span><br><span class="line">In the second test case, both Computer-&gt;English-&gt;Math and Computer-&gt;Math-&gt;English leads to reduce 3 points, but the </span><br><span class="line">word &quot;English&quot; appears earlier than the word &quot;Math&quot;, so we choose the first order. That is so-called alphabet order.</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>Author</p>
+<p>Ignatius.L</p>
+<p>​    分析：题意：现在有 N 门课的作业要交，但是都还没有完成，按字典序给定课程名称，</p>
+<p>​                            需还有多少天上交，完成这门课的作业需要的时间，每超出一天则会在期末成绩少一分</p>
+<p>​                            问：怎样做作业才可以使扣分最少，输出最少分数以及作业顺序（按字典顺序）</p>
+<p>​                            重点：1&lt;=N&lt;=15</p>
+<p>​                思想：懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵懵</p>
+<p>​                            首先可以看出是一个DP问题，也有直觉可以使用贪心算法？</p>
+<p>​                            但是在贪心过程中会出现很多问题，比如：要存的东西过多使用了一万个数组（不是）</p>
+<p>​                            所以DP求解是比较方便的，因为重点：N 的数据量很小</p>
+<p>​                            那么我们可以遍历每一种情况，找到最小值，输出。</p>
+<p>​                            但是如果使用正常的DP会遇到一个很严重的问题：因为要使每一门课的每一种组合情况</p>
+<p>​                                    都保存到，3门课还好，三维数组便可解决，但是15门课呢？</p>
+<p>​                                    用15维数组吗？（要保存每一种情况）显然是不科学的</p>
+<p>​                            那。。。。怎么办呢？</p>
+<p>​                            头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃</p>
+<p>​                            那么就有请小学二年级学过的状压DP登场！</p>
+<p>​                            这个状态，要保存每一门课是否上过，那么我们使用二进制数来表示就再简便不过了</p>
+<p>​                            以3门课举例，我们只需要1&lt;&lt;3这么多个数字就可以表示每一种状态</p>
+<p>​                            001 010 011 100 101 110 111（哪一位数字为1，则哪一门课上过）</p>
+<p>​                            这样一来，就算N==15，也只需要DP（1&lt;&lt;15）即可</p>
+<p>​                            那我们如何转移呢？</p>
+<p>​                            我们用 i 表示当前要考虑的状态是从哪来的</p>
+<p>​                            用 j 表示我们当前考虑的课程</p>
+<p>​                            用 DP 来保存当前状态超出天数的最小值</p>
+<p>​                            用 PRE 来记录，这个状态是由哪个状态变过来最小的，来方便我们输出</p>
+<p>​                            那么我们先来看：i &amp; (1 &lt;&lt; j ) ：这个可以判断什么呢？</p>
+<p>​                                                        &amp; 此运算符在两个数对应二进制位都为 1 的时候才为 1.</p>
+<p>​                                                        所以可以用来判断是不是又重复的作业，比如 001和 011 这两个状态</p>
+<p>​                                                        显然不可共存</p>
+<p>​                            然后使用一个中间变量，累加已有的状态的时间量和当前要考虑的时间量，</p>
+<p>​                            并且做计算超出时间的工作，如果没超出则为 0 就好</p>
+<p>​                            完成之后，中间变量的值便是多加了当前情况之后，超出的时间的值</p>
+<p>​                            进行完之后进行转移：</p>
+<p>​                            那么DP（ i | (1 &lt;&lt; j ) ）代表什么呢？</p>
+<p>​                                            | 此运算符在两个数的二进制位中有一个为 1  就为 1</p>
+<p>​                                            所以，就相当于在表示考虑过的作业的情况，比如前提 i == 001</p>
+<p>​                                                                                                                        现在考虑为 j == 100</p>
+<p>​                                            那么就可以表示DP（101），相当于前提和当前考虑组合起来</p>
+<p>​                            那么怎么保证最小呢？</p>
+<p>​                                            既然DP（ i | (1 &lt;&lt; j ) ）是由 i 转移得到的，那么比较也很明显了</p>
+<p>​                                                        就是DP（ i | (1 &lt;&lt; j ) ）与 DP（ i ）+ 中间变量的值 取小者</p>
+<p>​                            那么最后要的便是DP（（1 &lt;&lt; 课程数）- 1）了，因为如果再往下遍历</p>
+<p>​                            以 3 为情况的话，便是 111 为前提了，也没有意义了</p>
+<p>​                            最后，按照 PRE 数组递归输出即可</p>
+<p>​                            整体时间复杂度过大，为：O（n²+2的n次方）</p>
+<p>​                            但是数据量不大，，所以只用了 31MS</p>
+<p>​        AC 代码如下：（头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃头秃）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> name[<span class="number">105</span>];</span><br><span class="line">    <span class="keyword">int</span> D, C;</span><br><span class="line">&#125;node[<span class="number">16</span>];</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">1</span> &lt;&lt; <span class="number">16</span>];</span><br><span class="line"><span class="keyword">int</span> pre[<span class="number">1</span> &lt;&lt; <span class="number">16</span>];</span><br><span class="line"><span class="keyword">int</span> num;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(<span class="keyword">int</span> data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (data == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)</span><br><span class="line">        <span class="keyword">if</span> ((data &amp; (<span class="number">1</span> &lt;&lt; i)) != <span class="number">0</span> &amp;&amp; (pre[data] &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            t = i;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    output(pre[data]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; node[t].name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; num;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; node[i].name &gt;&gt; node[i].D &gt;&gt; node[i].C;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="number">1</span> &lt;&lt; num); i++)</span><br><span class="line">            dp[i] = inf;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="number">1</span> &lt;&lt; num); i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; num; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (i &amp; (<span class="number">1</span> &lt;&lt; j))</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; num; k++)</span><br><span class="line">                    <span class="keyword">if</span> (i &amp; (<span class="number">1</span> &lt;&lt; k))</span><br><span class="line">                        s += node[k].C;</span><br><span class="line">                s += node[j].C;</span><br><span class="line">                <span class="keyword">if</span> (s &gt; node[j].D)</span><br><span class="line">                    s = s - node[j].D;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    s = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> (dp[i | (<span class="number">1</span> &lt;&lt; j)] &gt; dp[i] + s)</span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i | (<span class="number">1</span> &lt;&lt; j)] = dp[i] + s;</span><br><span class="line">                    pre[i | (<span class="number">1</span> &lt;&lt; j)] = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; dp[(<span class="number">1</span> &lt;&lt; num) - <span class="number">1</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        output((<span class="number">1</span> &lt;&lt; num) - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>HD 1087</p>
+<h1 id="Super-Jumping-Jumping-Jumping"><a href="#Super-Jumping-Jumping-Jumping" class="headerlink" title="Super Jumping! Jumping! Jumping!"></a>Super Jumping! Jumping! Jumping!</h1><p><strong><em>\</em>Time Limit: 2000/1000 MS (Java/Others)  Memory Limit: 65536/32768 K (Java/Others)**</strong></p>
+<p>Problem Description</p>
+<p>Nowadays, a kind of chess game called “Super Jumping! Jumping! Jumping!” is very popular in HDU. Maybe you are a good boy, and know little about this game, so I introduce it to you now.</p>
+<p><img src="http://acm.hdu.edu.cn/data/images/1087-1.jpg" alt="img"></p>
+<p>The game can be played by two or more than two players. It consists of a chessboard（棋盘）and some chessmen（棋子）, and all chessmen are marked by a positive integer or “start” or “end”. The player starts from start-point and must jumps into end-point finally. In the course of jumping, the player will visit the chessmen in the path, but everyone must jumps from one chessman to another absolutely bigger (you can assume start-point is a minimum and end-point is a maximum.). And all players cannot go backwards. One jumping can go from a chessman to next, also can go across many chessmen, and even you can straightly get to end-point from start-point. Of course you get zero point in this situation. A player is a winner if and only if he can get a bigger score according to his jumping solution. Note that your score comes from the sum of value on the chessmen in you jumping path.<br>Your task is to output the maximum value according to the given chessmen list.</p>
+<p>Input</p>
+<p>Input contains multiple test cases. Each test case is described in a line as follow:<br>N value_1 value_2 …value_N<br>It is guarantied that N is not more than 1000 and all value_i are in the range of 32-int.<br>A test case starting with 0 terminates the input and this test case is not to be processed.</p>
+<p>Output</p>
+<p>For each case, print the maximum according to rules, and one line one case.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 1 3 2</span><br><span class="line">4 1 2 3 4</span><br><span class="line">4 3 3 2 1</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">10</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>Author</p>
+<p>lcy</p>
+<p>​        分析：题意：有一个棋盘和棋子，要求从开始的棋子跳至比当前棋子的数字严格大于的棋子上，                                可以不相邻</p>
+<p>​                    思路：典型的最长上升子序列问题</p>
+<p>​                                用 DP （ i ）保存前（ i ）个数中严格上升的子序列的最大和</p>
+<p>​                                当 i 处于边界时：DP（ i ）= a（ i ）</p>
+<p>​                                转移时的方程：MAX（DP（ i ），DP（ i ）+ A（ j ））</p>
+<p>​                    方法：枚举上下边界    </p>
+<p>​        AC 代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> dp[<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1005</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span> (scanf_s(<span class="string">&quot;%d&quot;</span>, &amp;n) &amp;&amp; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">            dp[i] = a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; i; j++)</span><br><span class="line">                <span class="keyword">if</span> (a[i] &gt; a[j] &amp;&amp; dp[i] &lt; dp[j] + a[i])</span><br><span class="line">                    dp[i] = dp[j] + a[i];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​                                </p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Koourl
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/08/03/6-%E7%8A%B6%E5%8E%8B-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/" title="6-状压+最长上升子序列">http://yoursite.com/2020/08/03/6-状压-最长上升子序列/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEAKLY/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/6-%E7%8A%B6%E5%8E%8B-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/03/5-%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84-DFS%E5%92%8CDP/" rel="prev" title="5-滚动数组+DFS和DP">
+      <i class="fa fa-chevron-left"></i> 5-滚动数组+DFS和DP
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/03/7-%E6%9C%80%E5%B0%8F%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85-%E6%8D%A2%E6%A0%B9DP/" rel="next" title="7-最小完全背包+换根DP">
+      7-最小完全背包+换根DP <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Doing-Homework"><span class="nav-number">1.</span> <span class="nav-text">Doing Homework</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Super-Jumping-Jumping-Jumping"><span class="nav-number">2.</span> <span class="nav-text">Super Jumping! Jumping! Jumping!</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Koourl"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Koourl</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koourl</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">78k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:11</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+</body>
+</html>

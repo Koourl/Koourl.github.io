@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"ture","show_result":"ture","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="5-滚动数组+DFS和DP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5-滚动数组+DFS和DP">
+<meta property="og:url" content="http://yoursite.com/2020/08/03/5-%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84-DFS%E5%92%8CDP/index.html">
+<meta property="og:site_name" content="KoourlのBLOG">
+<meta property="og:description" content="5-滚动数组+DFS和DP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-03T03:33:57.000Z">
+<meta property="article:modified_time" content="2020-08-03T04:08:18.857Z">
+<meta property="article:author" content="Koourl">
+<meta property="article:tag" content="WEAKLY">
+<meta property="article:tag" content="5-滚动数组+DFS和DP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/03/5-%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84-DFS%E5%92%8CDP/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>5-滚动数组+DFS和DP | KoourlのBLOG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="KoourlのBLOG" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KoourlのBLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/03/5-%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84-DFS%E5%92%8CDP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Koourl">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KoourlのBLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          5-滚动数组+DFS和DP
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:33:57 / 修改时间：12:08:18" itemprop="dateCreated datePublished" datetime="2020-08-03T11:33:57+08:00">2020-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEAKLY/" itemprop="url" rel="index"><span itemprop="name">WEAKLY</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">5-滚动数组+DFS和DP</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>HD 1024</p>
+<h1 id="Max-Sum-Plus-Plus"><a href="#Max-Sum-Plus-Plus" class="headerlink" title="Max Sum Plus Plus"></a>Max Sum Plus Plus</h1><p><strong><em>\</em>Time Limit: 2000/1000 MS (Java/Others)  Memory Limit: 65536/32768 K (Java/Others)**</strong></p>
+<p>Problem Description</p>
+<p>Now I think you have got an AC in Ignatius.L’s “Max Sum” problem. To be a brave ACMer, we always challenge ourselves to more difficult problems. Now you are faced with a more difficult problem.</p>
+<p>Given a consecutive number sequence S<em>1</em>, S<em>2</em>, S<em>3</em>, S<em>4</em> … S<em>x</em>, … S<em>n</em> (1 ≤ x ≤ n ≤ 1,000,000, -32768 ≤ S<em>x</em> ≤ 32767). We define a function sum(i, j) = S<em>i</em> + … + S<em>j</em> (1 ≤ i ≤ j ≤ n).</p>
+<p>Now given an integer m (m &gt; 0), your task is to find m pairs of i and j which make sum(i<em>1</em>, j<em>1</em>) + sum(i<em>2</em>, j<em>2</em>) + sum(i<em>3</em>, j<em>3</em>) + … + sum(i<em>m</em>, j<em>m</em>) maximal (i<em>x</em> ≤ i<em>y</em> ≤ j<em>x</em> or i<em>x</em> ≤ j<em>y</em> ≤ j<em>x</em> is not allowed).</p>
+<p>But I`m lazy, I don’t want to write a special-judge module, so you don’t have to output m pairs of i and j, just output the maximal summation of sum(i<em>x</em>, j<em>x</em>)(1 ≤ x ≤ m) instead. ^_^</p>
+<p>Input</p>
+<p>Each test case will begin with two integers m and n, followed by n integers S<em>1</em>, S<em>2</em>, S<em>3</em> … S<em>n</em>.<br>Process to the end of file.</p>
+<p>Output</p>
+<p>Output the maximal summation described above in one line.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 3 1 2 3</span><br><span class="line">2 6 -1 4 -2 3 -2 3</span><br></pre></td></tr></table></figure>
+
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">8</span><br><span class="line"></span><br><span class="line">Hint</span><br><span class="line">Huge input, scanf and dynamic programming is recommended.</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>Author</p>
+<p>JGShining（极光炫影）</p>
+<p>分析：题意：将一个数组分为不相交的M段，使这M段加起来的和最大</p>
+<p>​                可以从题意看出，这肯定是一道DP问题，是最大子段和的一个升级版</p>
+<p>​                要划分段，那就用DP（i，j）表示前 j 个数划分为 i 段时候的最大值</p>
+<p>​                    就会有两种情况：1，第 j 个元素被分到了第 i 段：dp（i，j）= dp（i，j - 1）+ a（j）</p>
+<p>​                                                    2，第 j 个元素没有被分到第 i 段</p>
+<p>​                                                                    那就说明，前 j - 1 个元素被分为了 i - 1 段，</p>
+<p>​                                                                    那么至少要有 i - 1 个元素分为 i - 1段，至多有 j - 1个</p>
+<p>​                                                                    所以不能简单的 dp（i，j）= dp（i - 1，j - 1）+ a（j）</p>
+<p>​                                                                    要枚举 i - 1开始到 j - 1结束有多少分为 i - 1 段最大</p>
+<p>​                                                                    所以应为 max（dp（i - 1，k）+a（j））i - 1&lt;= k &lt;=j - 1</p>
+<p>​                单纯到这里，题目已经能够解出来了，但是，数据范围：n = 1e6，按以上 dp 想法，</p>
+<p>​                                        时间复杂度为立方级即 O（n³）</p>
+<p>​                                        而且。。m 只要稍稍大一点点，恐怕内存也不保。。。</p>
+<p>​                优化：1，空间（滚动数组）</p>
+<p>​                                    dp（i，j）要二维数组过于浪费，因为从上述来看，</p>
+<p>​                                                dp的下一个数只与上一行与本行有关，其余的行数为多余，</p>
+<p>​                                                            并且最后只要dp（m，n）</p>
+<p>​                                    所以采用两个数组简单实现滚动数组的方法</p>
+<p>​                                                dp1保存本次更新完毕的最大值，dp2保存上次更新的最大值</p>
+<p>​                                                与二维数组效果一致，节约了内存</p>
+<p>​                            2，时间</p>
+<p>​                                    在循环过程中：第三层循环即 i - 1&lt;=k&lt;=j - 1这个寻找最大的段可以放到更新过程中</p>
+<p>​                                    创建一个临时变量来完成，不需要再多加一层循环，所以时间复杂度O（n²）</p>
+<p>​                综上：dp1（j）= max（dp1（j - 1）+ a（j），dp2（j -1）+ a（j））；</p>
+<p>​                            中间设置变量使 dp2（j - 1）一直为更新过程中的最大值。</p>
+<p>​    AC 代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MIN = <span class="number">-0x3f3f3f</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1000005</span>];</span><br><span class="line"><span class="keyword">int</span> dp1[<span class="number">1000005</span>];</span><br><span class="line"><span class="keyword">int</span> dp2[<span class="number">1000005</span>];</span><br><span class="line"><span class="keyword">int</span> m,n;</span><br><span class="line"><span class="keyword">int</span> maxx;</span><br><span class="line"><span class="keyword">int</span> i, j;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (scanf_s(<span class="string">&quot;%d%d&quot;</span>, &amp;m, &amp;n) != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a));</span><br><span class="line">        <span class="built_in">memset</span>(dp1, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp1));</span><br><span class="line">        <span class="built_in">memset</span>(dp2, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp2));</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            maxx = MIN;</span><br><span class="line">            <span class="keyword">for</span> (j = i; j &lt;= n; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                dp1[j] = <span class="built_in">max</span>(dp2[j - <span class="number">1</span>] + a[j], dp1[j - <span class="number">1</span>] + a[j]);</span><br><span class="line">                <span class="keyword">if</span> (maxx != MIN) dp2[j - <span class="number">1</span>] = maxx;</span><br><span class="line">                <span class="keyword">if</span> (dp1[j] &gt; maxx)maxx = dp1[j];</span><br><span class="line">            &#125;</span><br><span class="line">            dp2[j - <span class="number">1</span>] = maxx;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; maxx &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p> HD 1069</p>
+<h1 id="Monkey-and-Banana"><a href="#Monkey-and-Banana" class="headerlink" title="Monkey and Banana"></a>Monkey and Banana</h1><p><strong><em>\</em>Time Limit: 2000/1000 MS (Java/Others)  Memory Limit: 65536/32768 K (Java/Others)**</strong></p>
+<p>Problem Description</p>
+<p>A group of researchers are designing an experiment to test the IQ of a monkey. They will hang a banana at the roof of a building, and at the mean time, provide the monkey with some blocks. If the monkey is clever enough, it shall be able to reach the banana by placing one block on the top another to build a tower and climb up to get its favorite food.</p>
+<p>The researchers have n types of blocks, and an unlimited supply of blocks of each type. Each type-i block was a rectangular solid with linear dimensions (xi, yi, zi). A block could be reoriented so that any two of its three dimensions determined the dimensions of the base and the other dimension was the height.</p>
+<p>They want to make sure that the tallest tower possible by stacking blocks can reach the roof. The problem is that, in building a tower, one block could only be placed on top of another block as long as the two base dimensions of the upper block were both strictly smaller than the corresponding base dimensions of the lower block because there has to be some space for the monkey to step on. This meant, for example, that blocks oriented to have equal-sized bases couldn’t be stacked.</p>
+<p>Your job is to write a program that determines the height of the tallest tower the monkey can build with a given set of blocks.</p>
+<p>Input</p>
+<p>The input file will contain one or more test cases. The first line of each test case contains an integer n,<br>representing the number of different blocks in the following data set. The maximum value for n is 30.<br>Each of the next n lines contains three integers representing the values xi, yi and zi.<br>Input is terminated by a value of zero (0) for n.</p>
+<p>Output</p>
+<p>For each test case, print one line containing the case number (they are numbered sequentially starting from 1) and the height of the tallest possible tower in the format “Case case: maximum height = height”.</p>
+<p>Sample Input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">10 20 30</span><br><span class="line">2</span><br><span class="line">6 8 10</span><br><span class="line">5 5 5</span><br><span class="line">7</span><br><span class="line">1 1 1</span><br><span class="line">2 2 2</span><br><span class="line">3 3 3</span><br><span class="line">4 4 4</span><br><span class="line">5 5 5</span><br><span class="line">6 6 6</span><br><span class="line">7 7 7</span><br><span class="line">5</span><br><span class="line">31 41 59</span><br><span class="line">26 53 58</span><br><span class="line">97 93 23</span><br><span class="line">84 62 64</span><br><span class="line">33 83 27</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p>Sample Output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Case 1: maximum height &#x3D; 40</span><br><span class="line">Case 2: maximum height &#x3D; 21</span><br><span class="line">Case 3: maximum height &#x3D; 28</span><br><span class="line">Case 4: maximum height &#x3D; 342</span><br></pre></td></tr></table></figure>
+
+<p>Source</p>
+<p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/search.php?field=problem&key=University+of+Ulm+Local+Contest+1996&source=1&searchmode=source">University of Ulm Local Contest 1996</a></p>
+<p>​    分析：题意：有 N 块砖，每块砖的规格为：（xi，yi，zi），现在要将砖一块上放一块，能放上去的条件                    为：低面的长，宽都严格小于在下面的砖，问最高能搭多高</p>
+<p>​                首先：一块砖只给出了三遍的数据，并没有给出他的底面必须为哪个面，所以要考虑到所有的情况                            可以将每一块砖的以三个面为低的三种情况都保存下来，因为每块砖有无穷块</p>
+<p>​                            每块砖的三个属性用结构体数组保存很方便</p>
+<p>​                            保存完之后，每一块砖都相当于只有一块了（因为要严格小于）</p>
+<p>​                            接下来，用dp（x）来保存找到第 x 块砖的最大高度是多少</p>
+<p>​                            那么，如何让程序能够一直往下一块找，直到找到最大的值呢？</p>
+<p>​                            可以设计多组循环，但是时间复杂度肯定不允许</p>
+<p>​                            所以要使用到深度优先搜索即 DFS</p>
+<p>​                                    分为以下情况：（dp数组初始化为-1）</p>
+<p>​                                                如果 dp（x）！= - 1：代表这个点已经进行过搜索，且当前值是搜索完的最大                                                        直接返回该值即可</p>
+<p>​                                                如果 dp（x）= = - 1：代表该点还没有搜索过那么遍历每块砖，如果找到合适的</p>
+<p>​                                                            就继续搜索下去，直到返回值</p>
+<p>​                                                            返回了之后：有可能出现一个砖上能放多个其他砖的情况</p>
+<p>​                                                            则，需要对 dp（x）：当前情况</p>
+<p>​                                                            和 dfs（i）进行比较取大者</p>
+<p>​                                    因为 DFS 中间使用了 DP 数组来保存被搜索过的砖，避免了 DFS递归 的缺点</p>
+<p>​                                    所以，时间复杂度很小</p>
+<p> AC 代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">60005</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y, z;</span><br><span class="line">&#125;a[N];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> dp[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (dp[x] != <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> dp[x];</span><br><span class="line">    dp[x] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n * <span class="number">6</span>; i++)</span><br><span class="line">        <span class="keyword">if</span> (a[x].x &gt; a[i].x &amp;&amp; a[x].y &gt; a[i].y)</span><br><span class="line">            dp[x] = <span class="built_in">max</span>(dp[x], dfs(i));</span><br><span class="line">    dp[x] += a[x].z;</span><br><span class="line">    <span class="keyword">return</span> dp[x];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (scanf_s(<span class="string">&quot;%d&quot;</span>, &amp;n) &amp;&amp; n != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x, y, z;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; z;</span><br><span class="line">            a[i * <span class="number">6</span>] = &#123; x,y,z &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">1</span>] = &#123; x,z,y &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">2</span>] = &#123; y,x,z &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">3</span>] = &#123; y,z,x &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">4</span>] = &#123; z,x,y &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">5</span>] = &#123; z,y,x &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n * <span class="number">6</span>; i++)</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, dfs(i));</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Case &quot;</span> &lt;&lt; num++ &lt;&lt; <span class="string">&quot;: maximum height = &quot;</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Koourl
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/08/03/5-%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84-DFS%E5%92%8CDP/" title="5-滚动数组+DFS和DP">http://yoursite.com/2020/08/03/5-滚动数组-DFS和DP/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEAKLY/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/5-%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84-DFS%E5%92%8CDP/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/03/4-%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="prev" title="4-博弈论">
+      <i class="fa fa-chevron-left"></i> 4-博弈论
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/03/6-%E7%8A%B6%E5%8E%8B-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/" rel="next" title="6-状压+最长上升子序列">
+      6-状压+最长上升子序列 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Max-Sum-Plus-Plus"><span class="nav-number">1.</span> <span class="nav-text">Max Sum Plus Plus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Monkey-and-Banana"><span class="nav-number">2.</span> <span class="nav-text">Monkey and Banana</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Koourl"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Koourl</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koourl</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">78k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:11</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+</body>
+</html>

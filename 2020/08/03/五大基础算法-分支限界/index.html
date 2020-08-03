@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"ture","show_result":"ture","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="分支限界">
+<meta property="og:type" content="article">
+<meta property="og:title" content="五大基础算法-分支限界">
+<meta property="og:url" content="http://yoursite.com/2020/08/03/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95-%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C/index.html">
+<meta property="og:site_name" content="KoourlのBLOG">
+<meta property="og:description" content="分支限界">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.downk.cc/item/5f2781d014195aa594cd0a30.png">
+<meta property="og:image" content="https://pic.downk.cc/item/5f2781e214195aa594cd0e20.jpg">
+<meta property="og:image" content="https://pic.downk.cc/item/5f2781f114195aa594cd133c.jpg">
+<meta property="og:image" content="https://pic.downk.cc/item/5f2781ff14195aa594cd17b8.jpg">
+<meta property="og:image" content="https://pic.downk.cc/item/5f27820d14195aa594cd1da0.jpg">
+<meta property="og:image" content="https://pic.downk.cc/item/5f27821c14195aa594cd21e1.jpg">
+<meta property="og:image" content="https://pic.downk.cc/item/5f27822a14195aa594cd26f4.jpg">
+<meta property="og:image" content="https://pic.downk.cc/item/5f27823814195aa594cd2bae.jpg">
+<meta property="article:published_time" content="2020-08-03T03:32:42.000Z">
+<meta property="article:modified_time" content="2020-08-03T04:09:14.162Z">
+<meta property="article:author" content="Koourl">
+<meta property="article:tag" content="五大基础算法">
+<meta property="article:tag" content="分支限界">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.downk.cc/item/5f2781d014195aa594cd0a30.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/03/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95-%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>五大基础算法-分支限界 | KoourlのBLOG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="KoourlのBLOG" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KoourlのBLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/03/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95-%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Koourl">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KoourlのBLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          五大基础算法-分支限界
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:32:42 / 修改时间：12:09:14" itemprop="dateCreated datePublished" datetime="2020-08-03T11:32:42+08:00">2020-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">五大基础算法</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">分支限界</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>五大基础算法（四）：分支限界</p>
+<p>​                                在学习这个算法之前，请务必掌握回溯算法</p>
+<p>​    分支限界即采用广度优先的策略，依次搜索所有的分支</p>
+<p>​    限界：为了有效选择下一节点，加速搜索的进程，在每一个或节点处，计算一个函数值</p>
+<p>​                根据计算的函数值，从当前活节点中选择最好的节点作为扩展结点，朝着最优解的分支推进</p>
+<p>​    思想：以广度优先或最小耗费（最大效益）的优先方式求解空间树</p>
+<p>​            （1）每一个活结点只有一次机会成为扩展结点，一旦成为扩展结点，一次性产生其所有子节点</p>
+<p>​                    在这些子结点中，导致不可行解和非最优解的的子节点被舍弃，其余子节点加入活结点表中</p>
+<p>​            （2）此后，从活结点中取下一节点成为当前扩展结点</p>
+<p>​            （3）重复，直到活结点为空或求的所需解为止</p>
+<p>​    对比分支限界与回溯</p>
+<p><img src="https://pic.downk.cc/item/5f2781d014195aa594cd0a30.png"></p>
+<p>​    重点：（1）设计合适的限界函数</p>
+<p>​                            可在节点扩展时删除不必要的节点，提高效率</p>
+<p>​                （2）组织活结点表</p>
+<p>​                            从活结点表中选择下一扩展结点，不同的活结点有不同的搜索方式    </p>
+<p>​                        1，队列式</p>
+<p>​                            将活结点表组织为一个队列，按先进先出选取下一个扩展结点</p>
+<p>​                        2，优先队列式</p>
+<p>​                            将活结点表组成一个优先队列，并选取优先级最高的活结点成为扩展结点</p>
+<p>​                        3，确定最优解的解向量</p>
+<p>​                            （1）对每个扩展结点保存从根节点到该节点的路径</p>
+<p>​                            （2）在搜索过程中构建搜索经过的树结构</p>
+<p>​    提高搜索效率：</p>
+<p>​                首先确定目标值的上下界，边搜索边剪枝，剪枝需要合理的判断方案，决定取舍</p>
+<p>​                    （1）对于最大/最小值问题，如何估算上/下限</p>
+<p>​                    （2）怎样从活结点表中选择另一个节点作为扩展结点</p>
+<p>​                    （3）怎样展开一棵树的搜索，广度优先/宽度广度结合</p>
+<p>​    eg1：单源最短路径</p>
+<p>​            给定带权有向图G=（V，E），权为非负实数，给定 V 中一个顶点为原点</p>
+<p>​            计算从原点到其他各顶点的最短路径长度（权和）</p>
+<p><img src="https://pic.downk.cc/item/5f2781e214195aa594cd0e20.jpg"></p>
+<p>​            分析：采用优先队列，优先级为路长</p>
+<p>​                    （1）从 S 和空队列开始，S 扩展后，a，b，c 依次插入队列</p>
+<p><img src="https://pic.downk.cc/item/5f2781f114195aa594cd133c.jpg"></p>
+<p>​                    （2）从优先队列中取出最小路长的结点作为当前扩展结点，依次检查扩展结点的所有顶点</p>
+<p>​                    （3）如果从当前扩展结点 I 到顶点 J 有边可达，且从源出发，经过 I 到 J 的路长小于当前最                            优解，则作为活结点加入优先队列，直到活结点为空</p>
+<p><img src="https://pic.downk.cc/item/5f2781ff14195aa594cd17b8.jpg"></p>
+<p>​    eg2：0—1背包问题</p>
+<p>​        假设一个 0—1 背包，n=3，重量W=（16，15，15），价值为 V=（45，25，25），限重 w=30，</p>
+<p>​        解向量为 X=（X1，X2，X3），解空间树如图示</p>
+<p><img src="https://pic.downk.cc/item/5f27820d14195aa594cd1da0.jpg"></p>
+<p>​        法1：采用队列式</p>
+<p>​            用 FIFO 表示队列，初始化时，FIFO=【】，过程如下：（括号中前数字为重量，后数字为价值）</p>
+<p>​            1，根节点 A（0，0）进队，FIFO=【A】</p>
+<p>​            2，出队A。B（16，45），C（0，0）进队，FIFO=【B，C】</p>
+<p>​            3，出队 B。其 D（31，70）超重，为死节点，E（16，45）进队，FIFO=【C，E】</p>
+<p>​            4，出队 C。其 F（15，25），G（0，0）进队，FIFO=【E，F，G】</p>
+<p>​            5，出队 E。其 J（31，70）为死节点，K（16，45），为一个可行节（1，0，0）</p>
+<p>​            6，出队 F。其 L（30，50）为一个可行解（0，1，1），</p>
+<p>​                M（15，25）为一个可行解（0，1，0），FIFO=【G】</p>
+<p>​            7，出队 G。其 N（15，25）为可行解（0，0，1），O（0，0）为可行解（0，0，0）</p>
+<p>​                FIFO=【】，结束</p>
+<p><img src="https://pic.downk.cc/item/5f27821c14195aa594cd21e1.jpg"></p>
+<p>​                设计限界函数：求装入背包的最大价值，用上界</p>
+<p>​                要尽可能装入最有价值的物品，按单位重量价值递减排序</p>
+<p>​                即：在不超重的条件下，先获取单位价值高的物品</p>
+<p>​                对于第 I 层的某个节点 e，e.w 表示搜到 e 时已装入的重量</p>
+<p>​                                                            e.v 表示已装入的总价值</p>
+<p>​                                                            e.ub 为上界</p>
+<p>​                如果余下物品只能部分装入： e.ub = e.w+(W-e.w)*V[I]/W[I]</p>
+<p>​                如果可以全部装入：e.ub = sumV</p>
+<p>​                解决方案：（1）先将求出上界的根节点进队</p>
+<p>​                                    （2）在队列不为空时循环：先出队一个节点 e，检查其左子节点，并求出上界</p>
+<p>​                                            若满足约束条件（e.w+w【e.i+1】&lt;=w），将其进队，否则左子节点死</p>
+<p>​                                    （3）在检查右子节点并求出上界，若可行（上界&gt;已找到的可行解最大值）进队，</p>
+<p>​                                            否则沿该点不可能找到最优解，剪枝</p>
+<p>​                                    （4）循环至队列为空，输出最优解向量和最大总和</p>
+<p><img src="https://pic.downk.cc/item/5f27822a14195aa594cd26f4.jpg"></p>
+<p>​        法2：优先队列式</p>
+<p>​            设计限界函数，优先级以限界函数为基础，用大根堆表示活结点表，取优先级为活结点所获价值</p>
+<p><img src="https://pic.downk.cc/item/5f27823814195aa594cd2bae.jpg"></p>
+<p>因为分支限界法最坏的情况为：遍历整个空间树，所以最长时间，空间复杂度为：O（2^N）</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Koourl
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/08/03/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95-%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C/" title="五大基础算法-分支限界">http://yoursite.com/2020/08/03/五大基础算法-分支限界/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/03/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" rel="prev" title="五大基础算法-回溯算法">
+      <i class="fa fa-chevron-left"></i> 五大基础算法-回溯算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/03/%E4%BA%94%E5%A4%A7%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next" title="五大基础算法-动态规划">
+      五大基础算法-动态规划 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Koourl"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Koourl</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koourl</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">78k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:11</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+</body>
+</html>
