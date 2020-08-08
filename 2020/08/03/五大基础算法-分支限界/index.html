@@ -285,7 +285,7 @@
 <p>​            （2）此后，从活结点中取下一节点成为当前扩展结点</p>
 <p>​            （3）重复，直到活结点为空或求的所需解为止</p>
 <p>​    对比分支限界与回溯</p>
-<p><img src="https://pic.downk.cc/item/5f2781d014195aa594cd0a30.png"></p>
+<p><img src="https://pic.downk.cc/item/5f2781d014195aa594cd0a30.png" alt=""></p>
 <p>​    重点：（1）设计合适的限界函数</p>
 <p>​                            可在节点扩展时删除不必要的节点，提高效率</p>
 <p>​                （2）组织活结点表</p>
@@ -305,17 +305,17 @@
 <p>​    eg1：单源最短路径</p>
 <p>​            给定带权有向图G=（V，E），权为非负实数，给定 V 中一个顶点为原点</p>
 <p>​            计算从原点到其他各顶点的最短路径长度（权和）</p>
-<p><img src="https://pic.downk.cc/item/5f2781e214195aa594cd0e20.jpg"></p>
+<p><img src="https://pic.downk.cc/item/5f2781e214195aa594cd0e20.jpg" alt=""></p>
 <p>​            分析：采用优先队列，优先级为路长</p>
 <p>​                    （1）从 S 和空队列开始，S 扩展后，a，b，c 依次插入队列</p>
-<p><img src="https://pic.downk.cc/item/5f2781f114195aa594cd133c.jpg"></p>
+<p><img src="https://pic.downk.cc/item/5f2781f114195aa594cd133c.jpg" alt=""></p>
 <p>​                    （2）从优先队列中取出最小路长的结点作为当前扩展结点，依次检查扩展结点的所有顶点</p>
 <p>​                    （3）如果从当前扩展结点 I 到顶点 J 有边可达，且从源出发，经过 I 到 J 的路长小于当前最                            优解，则作为活结点加入优先队列，直到活结点为空</p>
-<p><img src="https://pic.downk.cc/item/5f2781ff14195aa594cd17b8.jpg"></p>
+<p><img src="https://pic.downk.cc/item/5f2781ff14195aa594cd17b8.jpg" alt=""></p>
 <p>​    eg2：0—1背包问题</p>
 <p>​        假设一个 0—1 背包，n=3，重量W=（16，15，15），价值为 V=（45，25，25），限重 w=30，</p>
 <p>​        解向量为 X=（X1，X2，X3），解空间树如图示</p>
-<p><img src="https://pic.downk.cc/item/5f27820d14195aa594cd1da0.jpg"></p>
+<p><img src="https://pic.downk.cc/item/5f27820d14195aa594cd1da0.jpg" alt=""></p>
 <p>​        法1：采用队列式</p>
 <p>​            用 FIFO 表示队列，初始化时，FIFO=【】，过程如下：（括号中前数字为重量，后数字为价值）</p>
 <p>​            1，根节点 A（0，0）进队，FIFO=【A】</p>
@@ -327,7 +327,7 @@
 <p>​                M（15，25）为一个可行解（0，1，0），FIFO=【G】</p>
 <p>​            7，出队 G。其 N（15，25）为可行解（0，0，1），O（0，0）为可行解（0，0，0）</p>
 <p>​                FIFO=【】，结束</p>
-<p><img src="https://pic.downk.cc/item/5f27821c14195aa594cd21e1.jpg"></p>
+<p><img src="https://pic.downk.cc/item/5f27821c14195aa594cd21e1.jpg" alt=""></p>
 <p>​                设计限界函数：求装入背包的最大价值，用上界</p>
 <p>​                要尽可能装入最有价值的物品，按单位重量价值递减排序</p>
 <p>​                即：在不超重的条件下，先获取单位价值高的物品</p>
@@ -342,10 +342,10 @@
 <p>​                                    （3）在检查右子节点并求出上界，若可行（上界&gt;已找到的可行解最大值）进队，</p>
 <p>​                                            否则沿该点不可能找到最优解，剪枝</p>
 <p>​                                    （4）循环至队列为空，输出最优解向量和最大总和</p>
-<p><img src="https://pic.downk.cc/item/5f27822a14195aa594cd26f4.jpg"></p>
+<p><img src="https://pic.downk.cc/item/5f27822a14195aa594cd26f4.jpg" alt=""></p>
 <p>​        法2：优先队列式</p>
 <p>​            设计限界函数，优先级以限界函数为基础，用大根堆表示活结点表，取优先级为活结点所获价值</p>
-<p><img src="https://pic.downk.cc/item/5f27823814195aa594cd2bae.jpg"></p>
+<p><img src="https://pic.downk.cc/item/5f27823814195aa594cd2bae.jpg" alt=""></p>
 <p>因为分支限界法最坏的情况为：遍历整个空间树，所以最长时间，空间复杂度为：O（2^N）</p>
 
     </div>
