@@ -79,11 +79,11 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> n;</span><br><span class="line">    <span class="keyword">while</span> (scanf_s(<span class="string">&quot;%lf&quot;</span>, &amp;n) != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">18</span>)</span><br><span class="line">            n /= <span class="number">18</span>;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">9</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Stan wins.\n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Ollie wins.\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>1-博弈论</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -212,11 +212,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <p>​                                                </p>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>2-博弈论</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -282,11 +282,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span> (scanf_s(<span class="string">&quot;%d&quot;</span>, &amp;n) &amp;&amp; n)</span><br><span class="line">        <span class="keyword">if</span> (n * n % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;8600&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;ailyanlu&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>3-博弈论</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -353,11 +353,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &amp;&amp; n &amp;&amp; m)</span><br><span class="line">        <span class="keyword">if</span> (n * m % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Wonderful!&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;What a pity!&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>4-博弈论</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -452,11 +452,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <p>​                                </p>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>6-状压+最长上升子序列</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -545,11 +545,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">60005</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y, z;</span><br><span class="line">&#125;a[N];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> dp[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (dp[x] != <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> dp[x];</span><br><span class="line">    dp[x] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n * <span class="number">6</span>; i++)</span><br><span class="line">        <span class="keyword">if</span> (a[x].x &gt; a[i].x &amp;&amp; a[x].y &gt; a[i].y)</span><br><span class="line">            dp[x] = <span class="built_in">max</span>(dp[x], dfs(i));</span><br><span class="line">    dp[x] += a[x].z;</span><br><span class="line">    <span class="keyword">return</span> dp[x];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (scanf_s(<span class="string">&quot;%d&quot;</span>, &amp;n) &amp;&amp; n != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x, y, z;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; z;</span><br><span class="line">            a[i * <span class="number">6</span>] = &#123; x,y,z &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">1</span>] = &#123; x,z,y &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">2</span>] = &#123; y,x,z &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">3</span>] = &#123; y,z,x &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">4</span>] = &#123; z,x,y &#125;;</span><br><span class="line">            a[i * <span class="number">6</span> + <span class="number">5</span>] = &#123; z,y,x &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n * <span class="number">6</span>; i++)</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, dfs(i));</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Case &quot;</span> &lt;&lt; num++ &lt;&lt; <span class="string">&quot;: maximum height = &quot;</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>5-滚动数组+DFS和DP</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -693,11 +693,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <p>​                                                                </p>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>7-最小完全背包+换根DP</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -775,11 +775,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <p>​                                                                                            </p>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>8-状压</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -840,11 +840,11 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">505</span>];</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">505</span>][<span class="number">505</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0x3f3f3f3f</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        dp[i][i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        dp[i][i + <span class="number">1</span>] = <span class="number">1</span> + (a[i] != a[i + <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">3</span>; len &lt;= n; len++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - len + <span class="number">1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + len - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (a[i] == a[j])</span><br><span class="line">                dp[i][j] = dp[i + <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &lt; j; k++)</span><br><span class="line">                dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i][k] + dp[k+<span class="number">1</span>][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; dp[<span class="number">1</span>][n];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>9-状压+区间</tag>
+        <tag>WEAKLY E</tag>
       </tags>
   </entry>
   <entry>
@@ -1325,11 +1325,61 @@ s*t,((s^2-t^2)/2),((s^2+t^2)/2)</script><p>​                                  
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> N, M;</span><br><span class="line"><span class="keyword">int</span> T;</span><br><span class="line"><span class="keyword">int</span> temp;</span><br><span class="line"><span class="keyword">int</span> bin[<span class="number">15</span>];</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">map</span>[<span class="number">15</span>][<span class="number">15</span>];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> dp[<span class="number">15</span>][<span class="number">15</span>][<span class="number">1</span> &lt;&lt; <span class="number">12</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    bin[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">12</span>; i++)</span><br><span class="line">        bin[i] = bin[i - <span class="number">1</span>] &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; N &gt;&gt; M;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= M; j++)</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; <span class="built_in">map</span>[i][j];</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        dp[<span class="number">0</span>][M][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> limit = bin[M + <span class="number">1</span>] - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> zt = <span class="number">0</span>; zt &lt;= limit; zt++)</span><br><span class="line">                dp[i][<span class="number">0</span>][zt &lt;&lt; <span class="number">1</span>] = dp[i - <span class="number">1</span>][M][zt];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= M; j++)    </span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> zt = <span class="number">0</span>; zt &lt;= limit; zt++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">int</span> b1 = zt &amp; bin[j - <span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">int</span> b2 = zt &amp; bin[j];</span><br><span class="line">                    <span class="keyword">long</span> <span class="keyword">long</span> num = dp[i][j - <span class="number">1</span>][zt];</span><br><span class="line">                    <span class="keyword">if</span> (!<span class="built_in">map</span>[i][j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (!b1 &amp;&amp; !b2)</span><br><span class="line">                            dp[i][j][zt] += num;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (!b1 &amp;&amp; !b2)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="built_in">map</span>[i + <span class="number">1</span>][j] &amp;&amp; <span class="built_in">map</span>[i][j + <span class="number">1</span>])</span><br><span class="line">                            dp[i][j][zt + bin[j - <span class="number">1</span>] + bin[j]] += num;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (!b1 &amp;&amp; b2)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="built_in">map</span>[i][j + <span class="number">1</span>])</span><br><span class="line">                            dp[i][j][zt] += num;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="built_in">map</span>[i + <span class="number">1</span>][j])</span><br><span class="line">                            dp[i][j][zt + bin[j - <span class="number">1</span>] - bin[j]] += num;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (b1 &amp;&amp; !b2)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="built_in">map</span>[i][j + <span class="number">1</span>])</span><br><span class="line">                            dp[i][j][zt + bin[j] - bin[j - <span class="number">1</span>]] += num;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="built_in">map</span>[i + <span class="number">1</span>][j])</span><br><span class="line">                            dp[i][j][zt] += num;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> dp[i][j][zt - bin[j - <span class="number">1</span>] - bin[j]] += num;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Case &quot;</span> &lt;&lt; ++temp &lt;&lt; <span class="string">&quot;: There are &quot;</span> &lt;&lt; dp[N][M][<span class="number">0</span>] &lt;&lt; <span class="string">&quot; ways to eat the trees.&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>WEAKLY</category>
+        <category>WEAKLY E</category>
       </categories>
       <tags>
-        <tag>WEAKLY</tag>
         <tag>10-插头</tag>
+        <tag>WEAKLY E</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>周讲-1</title>
+    <url>/2020/08/08/%E5%91%A8%E8%AE%B2-1/</url>
+    <content><![CDATA[<p>二分图：可以将顶点看为两个集合，集合内部无联系，只在两个集合间有联系，                                                                            存在以上划分方法的图称为二分图</p>
+<p>​    性质：二分图内每个环的边数都为偶数</p>
+<p>​    问题种类：</p>
+<p>​        匹配问题：设G=<V , E>是二分图，且E是V1和V2的笛卡尔积的集合</p>
+<p>​            （第一个为V1的顶点，第二个为V2的顶点，构成的边集，又因为二分图的定义，所以就是全部边的集合）</p>
+<p>​                            在E中有子集M，M内的边没有相邻的边称为M为G的一个匹配，所以具有最大匹配的问题</p>
+<p>​                            当V1=V2=M时，则成M为完美匹配（M中的边称为杆）</p>
+<p>​                            显然，完美匹配定为最大匹配，但反之则不对</p>
+<p>​                            四个定义：当有杆（u，v）属于M，且u为V1中的节点，v为V2中的节点，则称两个节点被M匹配</p>
+<p>​                                                当有一个杆可以匹配节点u时，u称为M的饱和点，否则为不饱和点</p>
+<p>​                                                当一条交替属于M和E\M的边构成的初级路为交错路</p>
+<p>​                                                当一条已u为起点，v为终点，且u和v都是不饱和点的交错路为增广路</p>
+<p>​    算法：匈牙利算法（找到最大匹配）</p>
+<p>​                思想：不停的寻找增广路来增加匹配中的匹配边和匹配点，来找到最大匹配</p>
+<p>​                步骤：首先取任意匹配M（可为空或者只有一条边）</p>
+<p>​                            然后找到V1中为M的不饱和点的u，如果S寻找完毕后为空集，则称M已经为最大匹配</p>
+<p>​                            如果S不为空，取任意饱和点u0做为起点，从此起点走出几条交错路Pi</p>
+<p>​                            如果其中的Pi有增广路，则令M为(M\P)U(P\M)，且新的M的大小为旧的M的大小+1，回到第三步</p>
+<p>​                            如果没有一条路为增广路，则令u0弹出S，弹出后如果S不为空则返回第三步</p>
+<p>​                            如果为空则M为最大匹配</p>
+<p>​    </p>
+<p>​    单源最短路：</p>
+<p>​                算法：SPFA</p>
+<p>​                        思想：用数组记录每个节点的最短路径估计值，用邻接矩阵储存图G</p>
+<p>​                                    采用动态逼近方法：用一个先进先出的队列来保存待优化的节点</p>
+<p>​                                                                        优化时：每次去除队首的节点设为u，并且用u点当前的最短路径估计值</p>
+<p>​                                                                                        对离开u点指向v点进行松弛操作，如果对v点的最短路有调整</p>
+<p>​                                                                                        并且v不在当前的队列中时，将v点加入队尾</p>
+<p>​                                                                        重复上述操作直至队列为空</p>
+<p>​                        实现方法：存入图</p>
+<p>​                                            开一个队列，先将开始时的节点放入</p>
+<p>​                                            每次取出一个节点，设为X，，遍历与X相通的节点Y</p>
+<p>​                                                对比Y的长度和X的长度+X到Y的长度，如果X的长度+X到Y的长度&lt;Y的长度，则需更新</p>
+<p>​                                                更新：存入最短路</p>
+<p>​                                                            由于改变了原有的长度，则往后更新与这个节点相连的最短路</p>
+<p>​                                                            期间记录这个节点的进队次数，判断是否存在负环</p>
+<p>​                                                                                （如果一个节点进入超过N次则有负环）</p>
+<p>​                                            直到队列为空</p>
+]]></content>
+      <categories>
+        <category>WEAKLY S</category>
+      </categories>
+      <tags>
+        <tag>WEAKLY S</tag>
+        <tag>周讲-1</tag>
       </tags>
   </entry>
 </search>
