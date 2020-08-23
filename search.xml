@@ -1513,4 +1513,57 @@ R（i-1）=Q（i+1）*Ri+R（i+1）</script><p>​                              
         <tag>10-插头</tag>
       </tags>
   </entry>
+  <entry>
+    <title>5-线性方程与GCD</title>
+    <url>/2020/08/23/5-%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E4%B8%8EGCD/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">五：线性方程与GCD</span><br></pre></td></tr></table></figure>
+<p>​                讨论线性方程ax+by的值的可能性，x，y可为任意整数    (下表为a=42，b=30)</p>
+<p><img src="https://pic.downk.cc/item/5f41e43a160a154a67337edc.jpg" style="zoom: 80%;" /></p>
+<p>​                很明显可以看到：形如ax+by的最小正整数为gcd(a，b)</p>
+<p>​                证明：</p>
+<p>​                        EG：gcd(22，60) = 22x+60y</p>
+<script type="math/tex; mode=display">
+60=2*22+16\\
+22=1*16+6\\
+16=2*6+4\\
+6=1*4+2\\
+4=2*2+0</script><p>​                        将上述等式改为：（a=60，b=22）</p>
+<script type="math/tex; mode=display">
+16=a-*b\\
+b=1*16+6=1*(a-2*b)+6，6=b-(a-2*b)=-a+3b\\
+a-2b=16=2*6+4=2(-a+3b)+4，4=(a-2b)-2(-a+3b)=3a-8b\\
+-a+3b=6=1*4+2=1*(3a-8b)+2，-4a+11b=2</script><p>​                        得到以下过程：</p>
+<script type="math/tex; mode=display">
+a=q1b+r1，r1=a-q1b\\
+b=q2r1+r2，r2=b-q2r1=-q2a+(1q1q2)b\\
+r1=q3r2+r3，r3=r1-q3r2=(1+q2q3)a-(q1+q3+q1q2q3)b</script><p>​                        即：最新余数=a的倍数+b的倍数，所以最终非零的余数=gcd(a，b)=ax+by</p>
+<p>​                有多少满足ax+by=gcd(a，b)的解呢？</p>
+<p>​                    从互素的a，b开始讨论，因为a，b互素，所以gcd(a，b)=1</p>
+<p>​                    设(x1，y1)是ax+by=1的一个解。通过对x1加b的倍数和y1减a的相同倍数可以得到</p>
+<p>​                    即：对于任意整数k，新解：(x1+kb，y1-ka)</p>
+<p>​                    带入验证：a(x1+kb)+b(y1-ka)=ax1+akb+by1-bka=ax1+by1=1（k为整数）</p>
+<p>​                    证明可给出所有解：设(x1，y1)，(x2，y2)是ax+by=1的两个解</p>
+<p>​                    则：ax1+by1=1且ax2+by2=1</p>
+<p>​                            用y2 <em> 一式， y1 </em> 二式，之后相减消去b得：ax1y2-ax2y1=y2-y1</p>
+<p>​                            同理换为x得：bx2y1-bx1y2=x2-x1</p>
+<p>​                            令k=x2y1-x1y2</p>
+<p>​                            则：x2=x1+kb，y2=y1-ka</p>
+<p>​                            满足(x1+kb，y1-ka)，得证</p>
+<p>​                    当gcd(a，b) &gt; 1时，令gcd(a，b)=g</p>
+<p>​                            ax+by=g，那么至少有一个(x1，y1)</p>
+<p>​                            而g|a，b，所以x1，y1为一个简单方程</p>
+<p>​                            (a/g) <em>x+(b/g) </em>y=1</p>
+<p>​                            带入上述解：(x1+kb/g，y1-ka/g)</p>
+<p>​                线性方程定理：设a，b为非零整数，g=gcd(a，b)</p>
+<p>​                                            方程ax+by=g，总有整数解(x1，y1)【可由欧几里得算法得到】</p>
+<p>​                                            使每个解可由(x1+kb/g，y1-ka/g)得到</p>
+]]></content>
+      <categories>
+        <category>NUM THEORY</category>
+      </categories>
+      <tags>
+        <tag>NUM THEORY</tag>
+        <tag>5-线性方程与GCD</tag>
+      </tags>
+  </entry>
 </search>
