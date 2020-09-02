@@ -67,31 +67,6 @@
   </entry>
   
   <entry>
-    <title>3-高次幂之和与费马大定理</title>
-    <link href="http://yoursite.com/2020/08/15/3-%E9%AB%98%E6%AC%A1%E5%B9%82%E4%B9%8B%E5%92%8C%E4%B8%8E%E8%B4%B9%E9%A9%AC%E5%A4%A7%E5%AE%9A%E7%90%86/"/>
-    <id>http://yoursite.com/2020/08/15/3-%E9%AB%98%E6%AC%A1%E5%B9%82%E4%B9%8B%E5%92%8C%E4%B8%8E%E8%B4%B9%E9%A9%AC%E5%A4%A7%E5%AE%9A%E7%90%86/</id>
-    <published>2020-08-15T08:57:43.000Z</published>
-    <updated>2020-08-15T09:01:00.317Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">三：高次幂之和与费马大定理</span><br></pre></td></tr></table></figure><p>在前两章我们发现方程</p><script type="math/tex; mode=display">a^2+b^2=c^2</script><p>有许多整数解a,b,c.自然人们要问当指数2换成更大的整数时相应的方程是否有解. </p><p>例如，方程</p><script type="math/tex; mode=display">a^3+b^3=c^3,a^4+b^4=c^4与a^5+b^5=c^5</script><p>有非零整数解a,b,c吗？答案是否定的.在1637年前后，费马证明上述指数为4的方 程没有解.在18和19世纪高斯与欧拉(Leonhard Euler)证明指数为3的方程没有解，狄 利克雷与勒让德(Adrien Legendre)证明了 5次方程没有解.n≥3时方程</p><script type="math/tex; mode=display">a^n+b^n=c^n</script><p>没有正整数解的这个一般性结论被称为“费马大定理”.自费马在书的边沿写出如下断言以来的350多年里，人们对它痴迷到近乎疯狂的地步：</p><p>不可能将一个3次方分成两个3次方之和；一个4次方不可能写成两个4次方之和；一般地，任何高于2次的幂不可能写成两个同次幂之和.我已发现一个美妙的证明，这里空白太小写不下.</p><p>今天，几乎没有数学家相信费马给出过他的这个“定理”的有效证明，这个“定理”之 所以被称为他的最后定理，是因为这是他最后一个未被证明的断言.费马大定理的历史 令人着迷，许许多多的数学家为它做出了重要贡献.这方面一个简要的综述也够编本书 了，但这不是本书的目标，所以我们只作一些简要的注记.</p><p>与对特定指数n的证明相对照，关于费马大定理最初的一般结果之一由热尔曼于 1823年给出.她证明</p><p>p与2p+1都是素数时方程a^p+b^p=c^p,没有p不整除积abc的整数解a, b, c.</p><p>接着，A. Wieferich于1909年得到一个相似结果：</p><p>如果2^v-2不被p^2整除， 则相同结论成立.</p><p> 19世纪后半叶一批数学家(尤其是3位大佬) 开创了被称为代数数论的数学新领 域，并应用他们的理论证明了费马大定理对许多指数成立，虽然仅限于有限数目的指 数.1985年，L.M.Adleman、D. R. Heath-Brown与E. Fouvry使用改进的热尔曼判别法和艰深的解析估计证明了</p><p>存在无穷多个素数P使得</p><script type="math/tex; mode=display">a^p+b^p=c^p</script><p>没有解 且p不整除abc.</p><p>剩下的就都是大佬的研究介绍了，不多赘述。</p>]]></content>
-    
-    <summary type="html">
-    
-      3-高次幂之和与费马大定理
-    
-    </summary>
-    
-    
-      <category term="NUM THEORY" scheme="http://yoursite.com/categories/NUM-THEORY/"/>
-    
-    
-      <category term="NUM THEORY" scheme="http://yoursite.com/tags/NUM-THEORY/"/>
-    
-      <category term="3-高次幂之和与费马大定理" scheme="http://yoursite.com/tags/3-%E9%AB%98%E6%AC%A1%E5%B9%82%E4%B9%8B%E5%92%8C%E4%B8%8E%E8%B4%B9%E9%A9%AC%E5%A4%A7%E5%AE%9A%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
     <title>4-整除性与最大公因数（GCD）</title>
     <link href="http://yoursite.com/2020/08/15/4-%E6%95%B4%E9%99%A4%E6%80%A7%E4%B8%8E%E6%9C%80%E5%A4%A7%E5%85%AC%E5%9B%A0%E6%95%B0%EF%BC%88GCD%EF%BC%89/"/>
     <id>http://yoursite.com/2020/08/15/4-%E6%95%B4%E9%99%A4%E6%80%A7%E4%B8%8E%E6%9C%80%E5%A4%A7%E5%85%AC%E5%9B%A0%E6%95%B0%EF%BC%88GCD%EF%BC%89/</id>
@@ -113,6 +88,31 @@
       <category term="NUM THEORY" scheme="http://yoursite.com/tags/NUM-THEORY/"/>
     
       <category term="4-整除性与最大公因数（GCD）" scheme="http://yoursite.com/tags/4-%E6%95%B4%E9%99%A4%E6%80%A7%E4%B8%8E%E6%9C%80%E5%A4%A7%E5%85%AC%E5%9B%A0%E6%95%B0%EF%BC%88GCD%EF%BC%89/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>3-高次幂之和与费马大定理</title>
+    <link href="http://yoursite.com/2020/08/15/3-%E9%AB%98%E6%AC%A1%E5%B9%82%E4%B9%8B%E5%92%8C%E4%B8%8E%E8%B4%B9%E9%A9%AC%E5%A4%A7%E5%AE%9A%E7%90%86/"/>
+    <id>http://yoursite.com/2020/08/15/3-%E9%AB%98%E6%AC%A1%E5%B9%82%E4%B9%8B%E5%92%8C%E4%B8%8E%E8%B4%B9%E9%A9%AC%E5%A4%A7%E5%AE%9A%E7%90%86/</id>
+    <published>2020-08-15T08:57:43.000Z</published>
+    <updated>2020-08-15T09:01:00.317Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">三：高次幂之和与费马大定理</span><br></pre></td></tr></table></figure><p>在前两章我们发现方程</p><script type="math/tex; mode=display">a^2+b^2=c^2</script><p>有许多整数解a,b,c.自然人们要问当指数2换成更大的整数时相应的方程是否有解. </p><p>例如，方程</p><script type="math/tex; mode=display">a^3+b^3=c^3,a^4+b^4=c^4与a^5+b^5=c^5</script><p>有非零整数解a,b,c吗？答案是否定的.在1637年前后，费马证明上述指数为4的方 程没有解.在18和19世纪高斯与欧拉(Leonhard Euler)证明指数为3的方程没有解，狄 利克雷与勒让德(Adrien Legendre)证明了 5次方程没有解.n≥3时方程</p><script type="math/tex; mode=display">a^n+b^n=c^n</script><p>没有正整数解的这个一般性结论被称为“费马大定理”.自费马在书的边沿写出如下断言以来的350多年里，人们对它痴迷到近乎疯狂的地步：</p><p>不可能将一个3次方分成两个3次方之和；一个4次方不可能写成两个4次方之和；一般地，任何高于2次的幂不可能写成两个同次幂之和.我已发现一个美妙的证明，这里空白太小写不下.</p><p>今天，几乎没有数学家相信费马给出过他的这个“定理”的有效证明，这个“定理”之 所以被称为他的最后定理，是因为这是他最后一个未被证明的断言.费马大定理的历史 令人着迷，许许多多的数学家为它做出了重要贡献.这方面一个简要的综述也够编本书 了，但这不是本书的目标，所以我们只作一些简要的注记.</p><p>与对特定指数n的证明相对照，关于费马大定理最初的一般结果之一由热尔曼于 1823年给出.她证明</p><p>p与2p+1都是素数时方程a^p+b^p=c^p,没有p不整除积abc的整数解a, b, c.</p><p>接着，A. Wieferich于1909年得到一个相似结果：</p><p>如果2^v-2不被p^2整除， 则相同结论成立.</p><p> 19世纪后半叶一批数学家(尤其是3位大佬) 开创了被称为代数数论的数学新领 域，并应用他们的理论证明了费马大定理对许多指数成立，虽然仅限于有限数目的指 数.1985年，L.M.Adleman、D. R. Heath-Brown与E. Fouvry使用改进的热尔曼判别法和艰深的解析估计证明了</p><p>存在无穷多个素数P使得</p><script type="math/tex; mode=display">a^p+b^p=c^p</script><p>没有解 且p不整除abc.</p><p>剩下的就都是大佬的研究介绍了，不多赘述。</p>]]></content>
+    
+    <summary type="html">
+    
+      3-高次幂之和与费马大定理
+    
+    </summary>
+    
+    
+      <category term="NUM THEORY" scheme="http://yoursite.com/categories/NUM-THEORY/"/>
+    
+    
+      <category term="NUM THEORY" scheme="http://yoursite.com/tags/NUM-THEORY/"/>
+    
+      <category term="3-高次幂之和与费马大定理" scheme="http://yoursite.com/tags/3-%E9%AB%98%E6%AC%A1%E5%B9%82%E4%B9%8B%E5%92%8C%E4%B8%8E%E8%B4%B9%E9%A9%AC%E5%A4%A7%E5%AE%9A%E7%90%86/"/>
     
   </entry>
   
